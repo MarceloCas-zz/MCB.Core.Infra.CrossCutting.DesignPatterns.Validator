@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F7E0EB1C-437B-4D45-A71C-18FF40EB2DA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCB.Core.Infra.CrossCutting.DesignPatterns.Validator", "src\MCB.Core.Infra.CrossCutting.DesignPatterns.Validator\MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.csproj", "{648F08E4-A46B-40AC-AE06-29FEADC51921}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tst", "tst", "{337D5A0E-844B-4C2B-88DB-95F823E19D82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Tests", "tst\MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Tests\MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Tests.csproj", "{2D7C4565-030B-40C4-AD52-14CFD0C5A2F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{648F08E4-A46B-40AC-AE06-29FEADC51921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{648F08E4-A46B-40AC-AE06-29FEADC51921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{648F08E4-A46B-40AC-AE06-29FEADC51921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{648F08E4-A46B-40AC-AE06-29FEADC51921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D7C4565-030B-40C4-AD52-14CFD0C5A2F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D7C4565-030B-40C4-AD52-14CFD0C5A2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D7C4565-030B-40C4-AD52-14CFD0C5A2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D7C4565-030B-40C4-AD52-14CFD0C5A2F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{648F08E4-A46B-40AC-AE06-29FEADC51921} = {F7E0EB1C-437B-4D45-A71C-18FF40EB2DA0}
+		{2D7C4565-030B-40C4-AD52-14CFD0C5A2F0} = {337D5A0E-844B-4C2B-88DB-95F823E19D82}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C4BD1EC-FDC4-4A6A-807E-ABF667F8C8BC}
+	EndGlobalSection
+EndGlobal
