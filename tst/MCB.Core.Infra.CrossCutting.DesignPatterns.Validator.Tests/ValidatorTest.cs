@@ -86,8 +86,7 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Tests.ValidatorTests
     }
 
     public class CustomerValidator
-        : ValidatorBase<Customer>,
-        Validator.Abstractions.IValidator<Customer>
+        : ValidatorBase<Customer>
     {
         protected override void ConfigureFluentValidationConcreteValidator(FluentValidationValidatorWrapper fluentValidationValidatorWrapper)
         {
