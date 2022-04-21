@@ -9,12 +9,14 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator
     {
         // Fields
         private bool _hasFluentValidationValidatorWrapperConfigured;
-        private readonly FluentValidationValidatorWrapper _fluentValidationValidatorWrapper;
+
+        // Properties
+        protected FluentValidationValidatorWrapper FluentValidationValidatorWrapperInstance { get; }
 
         // Constructors
         protected ValidatorBase()
         {
-            _fluentValidationValidatorWrapper = new FluentValidationValidatorWrapper();
+            FluentValidationValidatorWrapperInstance = new FluentValidationValidatorWrapper();
         }
 
         // Private Methods
@@ -51,7 +53,7 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator
             if (_hasFluentValidationValidatorWrapperConfigured)
                 return;
 
-            ConfigureFluentValidationConcreteValidator(_fluentValidationValidatorWrapper);
+            ConfigureFluentValidationConcreteValidator(FluentValidationValidatorWrapperInstance);
 
             _hasFluentValidationValidatorWrapperConfigured = true;
         }
@@ -64,13 +66,13 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator
         {
             CheckAndConfigureFluentValidationConcreteValidator();
 
-            return CreateValidationResult(_fluentValidationValidatorWrapper.Validate(instance));
+            return CreateValidationResult(FluentValidationValidatorWrapperInstance.Validate(instance));
         }
         public async Task<ValidationResult> ValidateAsync(T instance, CancellationToken cancellationToken)
         {
             CheckAndConfigureFluentValidationConcreteValidator();
 
-            return CreateValidationResult(await _fluentValidationValidatorWrapper.ValidateAsync(instance, cancellationToken));
+            return CreateValidationResult(await FluentValidationValidatorWrapperInstance.ValidateAsync(instance, cancellationToken));
         }
 
         #region Fluent Validation Wrapper

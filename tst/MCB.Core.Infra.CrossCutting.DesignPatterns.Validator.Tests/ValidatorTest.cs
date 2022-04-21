@@ -122,7 +122,7 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Tests.ValidatorTests
                 .WithSeverity(Severity.Info);
 
             fluentValidationValidatorWrapper.RuleFor(customer => customer.IsActive)
-                .Must(isActive => isActive == true)
+                .Must(isActive => isActive)
                 .WithErrorCode("CustomerIsNotActive")
                 .WithMessage("Customer is not active")
                 .WithSeverity(Severity.Warning);
