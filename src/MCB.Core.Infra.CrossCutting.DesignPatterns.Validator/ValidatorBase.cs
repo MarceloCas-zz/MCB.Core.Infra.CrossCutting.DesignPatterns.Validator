@@ -4,36 +4,23 @@ using MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Abstractions.Models;
 
 namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator
 {
-    public abstract class ValidatorBase<T>
-        : IValidator<T>
+    public abstract class ValidatorBase
     {
-        // Fields
-        private bool _hasFluentValidationValidatorWrapperConfigured;
-
-        // Properties
-        protected FluentValidationValidatorWrapper FluentValidationValidatorWrapperInstance { get; }
-
-        // Constructors
-        protected ValidatorBase()
-        {
-            FluentValidationValidatorWrapperInstance = new FluentValidationValidatorWrapper();
-        }
-
-        // Private Methods
-        private static ValidationMessageType CreateValidationMessageType(FluentValidation.Severity severity)
+        // Protected Methods
+        protected static ValidationMessageType CreateValidationMessageType(FluentValidation.Severity severity)
         {
             ValidationMessageType validationMessageType;
 
             if (severity == FluentValidation.Severity.Error)
                 validationMessageType = ValidationMessageType.Error;
-            else if(severity == FluentValidation.Severity.Warning)
+            else if (severity == FluentValidation.Severity.Warning)
                 validationMessageType = ValidationMessageType.Warning;
             else
                 validationMessageType = ValidationMessageType.Information;
 
             return validationMessageType;
         }
-        private static ValidationResult CreateValidationResult(FluentValidation.Results.ValidationResult fluentValidationValidationResult)
+        protected static ValidationResult CreateValidationResult(FluentValidation.Results.ValidationResult fluentValidationValidationResult)
         {
             var validationMessageCollection = new List<ValidationMessage>();
 
@@ -48,6 +35,24 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator
 
             return new ValidationResult(validationMessageCollection);
         }
+    }
+    public abstract class ValidatorBase<T>
+        : ValidatorBase,
+        IValidator<T>
+    {
+        // Fields
+        private bool _hasFluentValidationValidatorWrapperConfigured;
+
+        // Properties
+        protected FluentValidationValidatorWrapper FluentValidationValidatorWrapperInstance { get; }
+
+        // Constructors
+        protected ValidatorBase()
+        {
+            FluentValidationValidatorWrapperInstance = new FluentValidationValidatorWrapper();
+        }
+
+        // Private Methods
         private void CheckAndConfigureFluentValidationConcreteValidator()
         {
             if (_hasFluentValidationValidatorWrapperConfigured)
@@ -80,7 +85,7 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator
             : FluentValidation.AbstractValidator<T>
         {
 
-        } 
+        }
         #endregion
     }
 }
