@@ -2,90 +2,89 @@
 using MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Abstractions.Enums;
 using MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Abstractions.Models;
 
-namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator
+namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Validator;
+
+public abstract class ValidatorBase
 {
-    public abstract class ValidatorBase
+    // Protected Methods
+    protected static ValidationMessageType CreateValidationMessageType(FluentValidation.Severity severity)
     {
-        // Protected Methods
-        protected static ValidationMessageType CreateValidationMessageType(FluentValidation.Severity severity)
-        {
-            ValidationMessageType validationMessageType;
+        ValidationMessageType validationMessageType;
 
-            if (severity == FluentValidation.Severity.Error)
-                validationMessageType = ValidationMessageType.Error;
-            else if (severity == FluentValidation.Severity.Warning)
-                validationMessageType = ValidationMessageType.Warning;
-            else
-                validationMessageType = ValidationMessageType.Information;
+        if (severity == FluentValidation.Severity.Error)
+            validationMessageType = ValidationMessageType.Error;
+        else if (severity == FluentValidation.Severity.Warning)
+            validationMessageType = ValidationMessageType.Warning;
+        else
+            validationMessageType = ValidationMessageType.Information;
 
-            return validationMessageType;
-        }
-        protected static ValidationResult CreateValidationResult(FluentValidation.Results.ValidationResult fluentValidationValidationResult)
-        {
-            var validationMessageCollection = new List<ValidationMessage>();
-
-            foreach (var validationFailure in fluentValidationValidationResult.Errors)
-                validationMessageCollection.Add(
-                    new ValidationMessage(
-                        validationMessageType: CreateValidationMessageType(validationFailure.Severity),
-                        code: validationFailure.ErrorCode,
-                        description: validationFailure.ErrorMessage
-                    )
-                );
-
-            return new ValidationResult(validationMessageCollection);
-        }
+        return validationMessageType;
     }
-    public abstract class ValidatorBase<T>
-        : ValidatorBase,
-        IValidator<T>
+    protected static ValidationResult CreateValidationResult(FluentValidation.Results.ValidationResult fluentValidationValidationResult)
     {
-        // Fields
-        private bool _hasFluentValidationValidatorWrapperConfigured;
+        var validationMessageCollection = new List<ValidationMessage>();
 
-        // Properties
-        protected FluentValidationValidatorWrapper FluentValidationValidatorWrapperInstance { get; }
+        foreach (var validationFailure in fluentValidationValidationResult.Errors)
+            validationMessageCollection.Add(
+                new ValidationMessage(
+                    validationMessageType: CreateValidationMessageType(validationFailure.Severity),
+                    code: validationFailure.ErrorCode,
+                    description: validationFailure.ErrorMessage
+                )
+            );
 
-        // Constructors
-        protected ValidatorBase()
-        {
-            FluentValidationValidatorWrapperInstance = new FluentValidationValidatorWrapper();
-        }
-
-        // Private Methods
-        private void CheckAndConfigureFluentValidationConcreteValidator()
-        {
-            if (_hasFluentValidationValidatorWrapperConfigured)
-                return;
-
-            ConfigureFluentValidationConcreteValidator(FluentValidationValidatorWrapperInstance);
-
-            _hasFluentValidationValidatorWrapperConfigured = true;
-        }
-
-        // Protected Methods
-        protected abstract void ConfigureFluentValidationConcreteValidator(FluentValidationValidatorWrapper fluentValidationValidatorWrapper);
-
-        // Public Methods
-        public ValidationResult Validate(T instance)
-        {
-            CheckAndConfigureFluentValidationConcreteValidator();
-
-            return CreateValidationResult(FluentValidationValidatorWrapperInstance.Validate(instance));
-        }
-        public async Task<ValidationResult> ValidateAsync(T instance, CancellationToken cancellationToken)
-        {
-            CheckAndConfigureFluentValidationConcreteValidator();
-
-            return CreateValidationResult(await FluentValidationValidatorWrapperInstance.ValidateAsync(instance, cancellationToken));
-        }
-
-        #region Fluent Validation Wrapper
-        public class FluentValidationValidatorWrapper
-            : FluentValidation.AbstractValidator<T>
-        {
-
-        }
-        #endregion
+        return new ValidationResult(validationMessageCollection);
     }
+}
+public abstract class ValidatorBase<T>
+    : ValidatorBase,
+    IValidator<T>
+{
+    // Fields
+    private bool _hasFluentValidationValidatorWrapperConfigured;
+
+    // Properties
+    protected FluentValidationValidatorWrapper FluentValidationValidatorWrapperInstance { get; }
+
+    // Constructors
+    protected ValidatorBase()
+    {
+        FluentValidationValidatorWrapperInstance = new FluentValidationValidatorWrapper();
+    }
+
+    // Private Methods
+    private void CheckAndConfigureFluentValidationConcreteValidator()
+    {
+        if (_hasFluentValidationValidatorWrapperConfigured)
+            return;
+
+        ConfigureFluentValidationConcreteValidator(FluentValidationValidatorWrapperInstance);
+
+        _hasFluentValidationValidatorWrapperConfigured = true;
+    }
+
+    // Protected Methods
+    protected abstract void ConfigureFluentValidationConcreteValidator(FluentValidationValidatorWrapper fluentValidationValidatorWrapper);
+
+    // Public Methods
+    public ValidationResult Validate(T instance)
+    {
+        CheckAndConfigureFluentValidationConcreteValidator();
+
+        return CreateValidationResult(FluentValidationValidatorWrapperInstance.Validate(instance));
+    }
+    public async Task<ValidationResult> ValidateAsync(T instance, CancellationToken cancellationToken)
+    {
+        CheckAndConfigureFluentValidationConcreteValidator();
+
+        return CreateValidationResult(await FluentValidationValidatorWrapperInstance.ValidateAsync(instance, cancellationToken));
+    }
+
+    #region Fluent Validation Wrapper
+    public class FluentValidationValidatorWrapper
+        : FluentValidation.AbstractValidator<T>
+    {
+
+    }
+    #endregion
 }
