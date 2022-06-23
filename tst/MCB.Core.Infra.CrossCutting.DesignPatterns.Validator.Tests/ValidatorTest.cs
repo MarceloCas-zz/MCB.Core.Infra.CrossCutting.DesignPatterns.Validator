@@ -83,6 +83,20 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Tests.ValidatorTests
             customerValidationResult.ValidationMessageCollection.Should().HaveCount(0);
 
         }
+
+        [Fact]
+        public void Validator_Should_CreateMessageCode()
+        {
+            // Arrange
+            var expectedValue = "ERROR_CUSTOMER_IDISREQUIRED";
+            var customerValidator = new CustomerValidator();
+
+            // Act
+            var messageCode = customerValidator.CreateMessageCode(ValidationMessageType.Error, "IdIsRequired");
+
+            // Assert
+            messageCode.Should().Be(expectedValue);
+        }
     }
 
     public class CustomerValidator
@@ -127,6 +141,9 @@ namespace MCB.Core.Infra.CrossCutting.DesignPatterns.Tests.ValidatorTests
                 .WithMessage("Customer is not active")
                 .WithSeverity(Severity.Warning);
         }
+
+        public string CreateMessageCode(ValidationMessageType validationMessageType, string codeBase)
+            => CreateMessageCodeInternal(validationMessageType, codeBase);
     }
 
     public class Customer

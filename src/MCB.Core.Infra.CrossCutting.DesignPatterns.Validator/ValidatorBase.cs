@@ -65,6 +65,10 @@ public abstract class ValidatorBase<T>
 
     // Protected Methods
     protected abstract void ConfigureFluentValidationConcreteValidator(FluentValidationValidatorWrapper fluentValidationValidatorWrapper);
+    protected string CreateMessageCodeInternal(ValidationMessageType validationMessageType, string codeBase)
+    {
+        return $"{validationMessageType}_{typeof(T).Name}_{codeBase}".ToUpperInvariant();
+    }
 
     // Public Methods
     public ValidationResult Validate(T instance)
