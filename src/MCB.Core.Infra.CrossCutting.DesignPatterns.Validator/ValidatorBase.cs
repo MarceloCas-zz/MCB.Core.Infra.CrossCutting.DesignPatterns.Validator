@@ -27,9 +27,9 @@ public abstract class ValidatorBase
         foreach (var validationFailure in fluentValidationValidationResult.Errors)
             validationMessageCollection.Add(
                 new ValidationMessage(
-                    validationMessageType: CreateValidationMessageType(validationFailure.Severity),
-                    code: validationFailure.ErrorCode,
-                    description: validationFailure.ErrorMessage
+                    ValidationMessageType: CreateValidationMessageType(validationFailure.Severity),
+                    Code: validationFailure.ErrorCode,
+                    Description: validationFailure.ErrorMessage
                 )
             );
 
