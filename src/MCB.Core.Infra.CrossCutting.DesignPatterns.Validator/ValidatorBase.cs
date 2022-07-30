@@ -44,7 +44,7 @@ public abstract class ValidatorBase<T>
     private bool _hasFluentValidationValidatorWrapperConfigured;
 
     // Properties
-    protected FluentValidationValidatorWrapper FluentValidationValidatorWrapperInstance { get; }
+    public FluentValidationValidatorWrapper FluentValidationValidatorWrapperInstance { get; }
 
     // Constructors
     protected ValidatorBase()
