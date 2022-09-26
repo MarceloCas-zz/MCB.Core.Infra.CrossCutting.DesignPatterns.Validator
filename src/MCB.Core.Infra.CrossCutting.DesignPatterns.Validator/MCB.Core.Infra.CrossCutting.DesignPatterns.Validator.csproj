@@ -7,11 +7,23 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Marcelo Castelo Branco</Authors>
 		<Company>MCB</Company>
+		<PackageProjectUrl>https://github.com/MarceloCas/MCB.Core.Infra.CrossCutting.DependencyInjection</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/MarceloCas/MCB.Core.Infra.CrossCutting.DependencyInjection</RepositoryUrl>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>symbols.nupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.2.2" />
-		<PackageReference Include="MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Abstractions" Version="0.9.0-alpha" />
+		<PackageReference Include="MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Abstractions" Version="0.11.0-alpha" />
 	</ItemGroup>
 
 </Project>
