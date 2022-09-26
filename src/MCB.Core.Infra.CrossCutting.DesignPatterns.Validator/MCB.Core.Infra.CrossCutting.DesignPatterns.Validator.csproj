@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.2.2" />
-		<PackageReference Include="MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Abstractions" Version="0.11.0-alpha" />
+		<PackageReference Include="MCB.Core.Infra.CrossCutting.DesignPatterns.Validator.Abstractions" Version="0.12.0-alpha" />
 	</ItemGroup>
 
 </Project>
